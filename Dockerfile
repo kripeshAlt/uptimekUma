@@ -4,10 +4,11 @@ FROM node:20-slim
 # Set environment variables
 ENV DEBIAN_FRONTEND=noninteractive
 
-# Install necessary packages
+# Install necessary packages, including git
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
     build-essential \
+    git \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Set the working directory
