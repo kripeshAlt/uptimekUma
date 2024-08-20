@@ -1,30 +1,8 @@
-# Use the official Node.js image as a base image
-FROM node:20-slim
-
-# Set environment variables
-ENV DEBIAN_FRONTEND=noninteractive
-
-# Install necessary packages, including git
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends \
-    build-essential \
-    git \
-    && apt-get clean && rm -rf /var/lib/apt/lists/*
-
-# Set the working directory
-WORKDIR /app
-
-# Clone the Uptime Kuma repository
-RUN git clone https://github.com/louislam/uptime-kuma.git .
-
-# Install dependencies
-RUN npm install
-
-# Build the application
-RUN npm run build
+# Use the pre-built Uptime Kuma image
+FROM louislam/uptime-kuma:1
 
 # Expose the port Uptime Kuma will run on
 EXPOSE 3001
 
-# Command to run Uptime Kuma
+# Set the entry point to start Uptime Kuma
 CMD ["npm", "run", "start-server"]
